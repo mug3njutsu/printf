@@ -28,3 +28,13 @@ For `x` conversions, `0x` is prepended for non-zero numbers.
 For `x` conversions, `0x` is prepended for non-zero numbers.
 
 - Example:
+```C
+int main(void)
+{
+	_printf("%x\n", 7);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+0x7
+```
