@@ -44,7 +44,7 @@ typedef struct converter_s
 {
 	unsigned char specifier;
 	unsigned int (*func)(va_list, buffer_t *,
-			unsigned char, int, int, unsigned char);
+	unsigned char, int, int, unsigned char);
 } converter_t;
 
 /**
@@ -90,6 +90,7 @@ unsigned int convert_R(va_list args, buffer_t *output,
 unsigned char flags, int wid, int prec, unsigned char len);
 
 /* Handlers */
+
 unsigned char handle_flags(const char *flags, char *index);
 unsigned char handle_length(const char *modifier, char *index);
 int handle_width(va_list args, const char *modifier, char *index);
