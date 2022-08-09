@@ -92,12 +92,12 @@ int main(void)
 ```C
 int main(void)
 {
-    _printf("%-5d7\n", 1337);
+    _printf("%-5d1337\n", 1337);
 }
 ```
 ```bash
 ➜  printf git:(main) ✗ ./example 
-1337 7
+1337 1337
 ```
 
 > #### Field Width
@@ -198,7 +198,7 @@ int main(void)
 ```
 
 `c`
-The `int` argument is converted to an `unsigned char`.
+* The `int` argument is converted to an `unsigned char`.
 
 - Example:
 ```python
@@ -211,8 +211,38 @@ int main(void)
     _printf("%c\n", 65);
 }
 ```
-```
 ```bash
 ➜  printf git:(main) ✗ ./example 
 A
+```
+
+`s`
+* The `const char *` argument is expected to be a pointer to a character array. Characters from the array, `char s[]`, are written starting from the  first element of the array and terminated with the null byte.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%s\n", "Clean code!");
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+Clean code!
+```
+
+`p`
+* The address of the argument is written, in hexadecimal.
+
+- Example:
+```C
+int main(void)
+{
+    char *str = "Clean code!";
+    _printf("%p\n", (void *)str);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+0x562a30796004
 ```
