@@ -3,9 +3,8 @@
 /**
  * driver - selector
  * @format: str
- * Description: loop function
  * Return: *p
- * structype selector - struct
+ * structype selector: struct
  */
 
 int (*driver(char *format))(char *format, va_list)
