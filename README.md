@@ -24,17 +24,195 @@ The format string argument is a constant character string composed of zero or mo
 > #### Flag Characters
 The character `%` may be followed by some of these flags:
 For `o` conversions, the first character of the output string is prefixed with `0`.
-For `x` conversions, `0x` is prepended for non-zero numbers.
-For `x` conversions, `0x` is prepended for non-zero numbers.
+For `x` conversions, `0x` is prepended for non-zero numbers, ergo, making them hex values.
+For `X` conversions, `0X` is prepended for non-zero numbers, ergo, making them hex values.
 
 - Example:
 ```C
 int main(void)
 {
-	_printf("%x\n", 7);
+	_printf("%x\n", 1337);
 }
 ```
 ```bash
 ➜  printf git:(main) ✗ ./example 
-0x7
+539
+```
+
+`(space) || (" ")`
+* A blank is left before a positive number or empty string produced by a signed conversion.
+
+- Example:
+```C
+int main(void)
+{
+	_printf("% d\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+ 1337
+```
+
+`+`
+* An addition sign is always placed before a number produced by signed conversion.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%+d\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
++1337
+```
+
+`0`
+* For `d`,`i`,`o`,`u`,`x` and `X` conversions, the converted value is padded on the left with zeroes rather than blanks.
+If the `0` flag is provided to a numeric conversion with a specified precision, it is ignored.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%05d\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+01337
+```
+
+`-`
+* The converted value is left-justified, which means it's padded on the right with blanks instead of on the left with blanks or zeroes.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%-5d7\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+1337 7
+```
+
+> #### Field Width
+* After flags, a minimum field with may be specified by a decimal digit string. The first digit must be a non-zero value. If the converted value has fewer characters than the provided width, the output is padded on the left or right with spaces, then again depending on whether the `-` flag was provided.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%7d\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+   1337
+```
+
+> #### Precision
+* After any flags or provided width, a precision may be specified by a `.` followed by a decimal digit string. For `d`,`i`,`o`,`u`,`x` and `X` conversions, the precision specifies the number of digits to appear. For `s` and `S` conversions, the precision specifies the maximum characters to be printed.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%.7d\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+0001337
+```
+* Alternatively, precision may be provided as an argument using the `*` character after the `.`.
+
+> #### Length Modifiers
+* After flags, width, and precision and before a conversion specifier, one of the following length modifiers may be provided:
+
+`h`
+* Specifies that an integer conversion corresponds to a `short int` or `unsigned short int` argument.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%hd\n", SHRT_MAX);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+32767
+```
+
+`L`
+* Specifies that an integer conversion corresponds to a `long int` or `unsigned long int` argument.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%ld\n", LONG_MAX);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+9223372036854775807
+```
+
+> #### Conversion Specifiers
+* The conversion specifier, introduced by `%` is a character that specifies the type of conversion to be applied. The `_printf` function supports the following conversion specifiers.
+
+`d, i`
+* The `int` argument is converted is signed decimal notation.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%d\n", 1337);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+1337
+```
+
+`o, u, x, X`
+* The `unsigned int` argument is converted to unsigned octal, unsigned decimal, or unsigned hexadecimal.
+
+- Example:
+```C
+int main(void)
+{
+    _printf("%o\n", 77);
+}
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+2471
+```
+
+`c`
+The `int` argument is converted to an `unsigned char`.
+
+- Example:
+```python
+>>> chr(65)
+'A'
+```
+```C
+int main(void)
+{
+    _printf("%c\n", 65);
+}
+```
+```
+```bash
+➜  printf git:(main) ✗ ./example 
+A
 ```
