@@ -69,10 +69,9 @@ unsigned char flags, int wid, int prec, unsigned char len)
 	if (!(d == 0 && prec == 0))
 		ret += convert_sbase(output, d, "0123456789",
 				flags, 0, prec);
-
 	ret += print_neg_width(output, ret, flags, wid);
-
 	return (ret);
+
 }
 
 /**
