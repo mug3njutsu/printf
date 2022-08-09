@@ -189,7 +189,7 @@ int main(void)
 ```C
 int main(void)
 {
-    _printf("%o\n", 77);
+    _printf("%o\n", 1337);
 }
 ```
 ```bash
