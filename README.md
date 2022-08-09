@@ -1,4 +1,4 @@
 ```
 Group Project: printf
 ```
-![](https://pics.me.me/developers-gdb-ide-100s-of-printf-statements-printf-s-i-n-pretty-function-line-38789494.png)
+![Printf-meme-you-can-never-be-too-serious](https://me.me/i/developers-gdb-ide-100s-of-printf-statements-961d4fd21ae94435ae4843311e18e016)
