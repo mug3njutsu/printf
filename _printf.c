@@ -1,82 +1,51 @@
-#include <stdarg.h>
-#include <unistd.h>
 #include "main.h"
 
 /**
-  * find_function - function that finds formats for _printf
-  * calls the corresponding function.
-  * @format: format (char, string, int, decimal)
-  * Return: NULL or function associated ;
-  */
+ * _printf - prints to stdout
+ * @format: str that contains the format to print
+ * Return: n chars written
+ */
 
-int (*find_function(const char *format))(va_list)
+int _printf(char *format, ...)
 {
-	unsigned int i = 0;
-	code_f find_f[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"i", print_int},
-		{"d", print_dec},
-		{"r", print_rev},
-		{"b", print_bin},
-		{"u", print_unsig},
-		{"o", print_octal},
-		{"x", print_x},
-		{"X", print_X},
-		{"R", print_rot13},
-		{NULL, NULL}
-	};
-
-	while (find_f[i].sc)
-	{
-		if (find_f[i].sc[0] == (*format))
-			return (find_f[i].f);
-		i++;
-	}
-	return (NULL);
-}
-
-/**
-  * _printf - produces output
-  * @format: format (char, string, int, decimal)
-  * Return: sizeof(output)
-  */
-
-int _printf(const char *format, ...)
-{
-	va_list ap;
-	int (*f)(va_list);
-	unsigned int i = 0, cprint = 0;
+	int written = 0, (*structype)(char *, va_list);
+	char q[3];
+	va_list pa;
 
 	if (format == NULL)
 		return (-1);
-	va_start(ap, format);
-	while (format[i])
+	q[2] = '\0';
+	va_start(pa, format);
+	_putchar(-1);
+	while (format[0])
 	{
-		while (format[i] != '%' && format[i])
+		if (format[0] == '%')
 		{
-			_putchar(format[i]);
-			cprint++;
-			i++;
+			structype = driver(format);
+			if (structype)
+			{
+				q[0] = '%';
+				q[1] = format[1];
+				written += structype(q, pa);
+			}
+			else if (format[1] != '\0')
+			{
+				written += _putchar('%');
+				written += _putchar(format[1]);
+			}
+			else
+			{
+				written += _putchar('%');
+				break;
+			}
+			format += 2;
 		}
-		if (format[i] == '\0')
-			return (cprint);
-		f = find_function(&format[i + 1]);
-		if (f != NULL)
-		{
-			cprint += f(ap);
-			i += 2;
-			continue;
-		}
-		if (!format[i + 1])
-			return (-1);
-		_putchar(format[i]);
-		cprint++;
-		if (format[i + 1] == '%')
-			i += 2;
 		else
-			i++;
+		{
+			written += _putchar(format[0]);
+			format++;
+		}
 	}
-	va_end(ap);
-	return (cprint);
+	_putchar(-2);
+	return (written);
 }
