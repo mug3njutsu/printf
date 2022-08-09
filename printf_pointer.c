@@ -30,3 +30,4 @@ int printf_pointer(va_list val)
 	b = printf_hex_aux(a);
 	return (b + 2);
 }
+
