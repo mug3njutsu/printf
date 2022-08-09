@@ -27,4 +27,4 @@ For `o` conversions, the first character of the output string is prefixed with `
 For `x` conversions, `0x` is prepended for non-zero numbers.
 For `x` conversions, `0x` is prepended for non-zero numbers.
 
-> Example:
+- Example:
